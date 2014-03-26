@@ -1,9 +1,10 @@
 module.exports = (grunt) ->
   grunt.initConfig
+    pkg: grunt.file.readJSON 'package.json'
     watch:
       src: 
         files: ["src/*.coffee"]
-        tasks: 'coffee'
+        tasks: ['coffee', 'uglify']
       sample_jade:
         files: ["samples/*.jade"]
         tasks: 'jade'
@@ -18,6 +19,20 @@ module.exports = (grunt) ->
       src:
         files:
           'dest/dollhouse.js': 'src/*.coffee'
+    uglify:
+      options:
+        banner: '''
+        /*! <%= pkg.title || pkg.name %>
+        * v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>
+        * <%= pkg.homepage %>
+        * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;
+        */
+
+        '''
+      dest:
+        files:
+          'dest/dollhouse.min.js': ['dest/dollhouse.js']
+
     jade:
       compile:
         options:
@@ -33,5 +48,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-jade'
+  grunt.loadNpmTasks 'grunt-contrib-uglify'
 
   grunt.registerTask 'default', ['coffee','jade','watch']
