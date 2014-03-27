@@ -23,7 +23,17 @@
       }
 
       CompositeView.prototype.capital_slug = function() {
-        return "" + (this.slug.charAt(0).toUpperCase()) + (this.slug.slice(1));
+        var s, slugs;
+        slugs = this.slug.split('_');
+        return ((function() {
+          var _i, _len, _results;
+          _results = [];
+          for (_i = 0, _len = slugs.length; _i < _len; _i++) {
+            s = slugs[_i];
+            _results.push("" + (s.charAt(0).toUpperCase()) + (s.slice(1)));
+          }
+          return _results;
+        })()).join('');
       };
 
       CompositeView.prototype.initialize = function() {
@@ -61,7 +71,17 @@
       }
 
       RowView.prototype.capital_slug = function() {
-        return "" + (this.slug.charAt(0).toUpperCase()) + (this.slug.slice(1));
+        var s, slugs;
+        slugs = this.slug.split('_');
+        return ((function() {
+          var _i, _len, _results;
+          _results = [];
+          for (_i = 0, _len = slugs.length; _i < _len; _i++) {
+            s = slugs[_i];
+            _results.push("" + (s.charAt(0).toUpperCase()) + (s.slice(1)));
+          }
+          return _results;
+        })()).join('');
       };
 
       RowView.prototype.initialize = function() {
@@ -85,7 +105,17 @@
       ItemView.prototype.namespace = '';
 
       ItemView.prototype.capital_slug = function() {
-        return "" + (this.slug.charAt(0).toUpperCase()) + (this.slug.slice(1));
+        var s, slugs;
+        slugs = this.slug.split('_');
+        return ((function() {
+          var _i, _len, _results;
+          _results = [];
+          for (_i = 0, _len = slugs.length; _i < _len; _i++) {
+            s = slugs[_i];
+            _results.push("" + (s.charAt(0).toUpperCase()) + (s.slice(1)));
+          }
+          return _results;
+        })()).join('');
       };
 
       ItemView.prototype.initialize = function() {
@@ -116,7 +146,17 @@
       View.prototype.namespace = '';
 
       View.prototype.capital_slug = function() {
-        return "" + (this.slug.charAt(0).toUpperCase()) + (this.slug.slice(1));
+        var s, slugs;
+        slugs = this.slug.split('_');
+        return ((function() {
+          var _i, _len, _results;
+          _results = [];
+          for (_i = 0, _len = slugs.length; _i < _len; _i++) {
+            s = slugs[_i];
+            _results.push("" + (s.charAt(0).toUpperCase()) + (s.slice(1)));
+          }
+          return _results;
+        })()).join('');
       };
 
       View.prototype.initialize = function() {

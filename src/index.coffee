@@ -14,7 +14,8 @@ do (global = @, Marionette, Backbone, _)->
 
   class Dollhouse.CompositeView extends Marionette.CompositeView
     capital_slug: ->
-      "#{@slug.charAt(0).toUpperCase()}#{@slug.slice(1)}"
+      slugs = @slug.split '_'
+      ("#{s.charAt(0).toUpperCase()}#{s.slice(1)}" for s in slugs).join ''
     initialize: ->
       @slug = caml2snake(@constructor.name, ['Composite', 'View'].length)
       if @namespace
@@ -33,7 +34,8 @@ do (global = @, Marionette, Backbone, _)->
 
   class Dollhouse.RowView extends Marionette.ItemView
     capital_slug: ->
-      "#{@slug.charAt(0).toUpperCase()}#{@slug.slice(1)}"
+      slugs = @slug.split '_'
+      ("#{s.charAt(0).toUpperCase()}#{s.slice(1)}" for s in slugs).join ''
     initialize: ->
       @slug = caml2snake(@constructor.name, ['Item', 'View'].length)
 
@@ -43,7 +45,9 @@ do (global = @, Marionette, Backbone, _)->
   class Dollhouse.ItemView extends Marionette.ItemView
     namespace: ''
     capital_slug: ->
-      "#{@slug.charAt(0).toUpperCase()}#{@slug.slice(1)}"
+      slugs = @slug.split '_'
+      ("#{s.charAt(0).toUpperCase()}#{s.slice(1)}" for s in slugs).join ''
+
     initialize: ->
       @slug = caml2snake(@constructor.name, ['Item', 'View'].length)
       if @namespace
@@ -58,7 +62,8 @@ do (global = @, Marionette, Backbone, _)->
   class Dollhouse.View extends Marionette.ItemView
     namespace: ''
     capital_slug: ->
-      "#{@slug.charAt(0).toUpperCase()}#{@slug.slice(1)}"
+      slugs = @slug.split '_'
+      ("#{s.charAt(0).toUpperCase()}#{s.slice(1)}" for s in slugs).join ''
     initialize: ->
       @slug = caml2snake(@constructor.name, ['View'].length)
 
