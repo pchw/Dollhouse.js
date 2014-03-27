@@ -27,8 +27,13 @@
       };
 
       CompositeView.prototype.initialize = function() {
+        var _ref;
         this.slug = caml2snake(this.constructor.name, ['Composite', 'View'].length);
-        this.collection = new global["" + (this.capital_slug()) + "Collection"];
+        if (this.namespace) {
+          this.collection = new ((_ref = global["" + this.namespace]) != null ? _ref["" + (this.capital_slug()) + "Collection"] : void 0);
+        } else {
+          this.collection = new global["" + (this.capital_slug()) + "Collection"];
+        }
         return this.collection.fetch();
       };
 
@@ -36,8 +41,13 @@
         return "" + this.slug + "_composite_view_tmpl";
       };
 
-      CompositeView.prototype.itemView = function() {
-        return global["" + (this.capital_slug()) + "RowView"];
+      CompositeView.prototype.getItemView = function() {
+        var _ref;
+        if (this.namespace) {
+          return (_ref = global["" + this.namespace]) != null ? _ref["" + (this.capital_slug()) + "RowView"] : void 0;
+        } else {
+          return global["" + (this.capital_slug()) + "RowView"];
+        }
       };
 
       return CompositeView;
@@ -65,7 +75,7 @@
       return RowView;
 
     })(Marionette.ItemView);
-    return Dollhouse.ItemView = (function(_super) {
+    Dollhouse.ItemView = (function(_super) {
       __extends(ItemView, _super);
 
       function ItemView() {
@@ -94,6 +104,30 @@
       };
 
       return ItemView;
+
+    })(Marionette.ItemView);
+    return Dollhouse.View = (function(_super) {
+      __extends(View, _super);
+
+      function View() {
+        return View.__super__.constructor.apply(this, arguments);
+      }
+
+      View.prototype.namespace = '';
+
+      View.prototype.capital_slug = function() {
+        return "" + (this.slug.charAt(0).toUpperCase()) + (this.slug.slice(1));
+      };
+
+      View.prototype.initialize = function() {
+        return this.slug = caml2snake(this.constructor.name, ['View'].length);
+      };
+
+      View.prototype.getTemplate = function() {
+        return "" + this.slug + "_view_tmpl";
+      };
+
+      return View;
 
     })(Marionette.ItemView);
   })(this, Marionette, Backbone, _);

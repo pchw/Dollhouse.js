@@ -17,12 +17,19 @@ do (global = @, Marionette, Backbone, _)->
       "#{@slug.charAt(0).toUpperCase()}#{@slug.slice(1)}"
     initialize: ->
       @slug = caml2snake(@constructor.name, ['Composite', 'View'].length)
-      @collection = new global["#{do @capital_slug}Collection"]
+      if @namespace
+        @collection = new global["#{@namespace}"]?["#{do @capital_slug}Collection"]
+      else 
+        @collection = new global["#{do @capital_slug}Collection"]
       do @collection.fetch
 
     getTemplate: ->
       "#{@slug}_composite_view_tmpl"
-    itemView: -> global["#{do @capital_slug}RowView"]
+    getItemView: ->
+      if @namespace
+        global["#{@namespace}"]?["#{do @capital_slug}RowView"]
+      else
+        global["#{do @capital_slug}RowView"]
 
   class Dollhouse.RowView extends Marionette.ItemView
     capital_slug: ->
@@ -47,3 +54,13 @@ do (global = @, Marionette, Backbone, _)->
 
     getTemplate: ->
       "#{@slug}_item_view_tmpl"
+
+  class Dollhouse.View extends Marionette.ItemView
+    namespace: ''
+    capital_slug: ->
+      "#{@slug.charAt(0).toUpperCase()}#{@slug.slice(1)}"
+    initialize: ->
+      @slug = caml2snake(@constructor.name, ['View'].length)
+
+    getTemplate: ->
+      "#{@slug}_view_tmpl"
