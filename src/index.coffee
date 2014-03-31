@@ -16,13 +16,15 @@ do (global = @, Marionette, Backbone, _)->
     capital_slug: ->
       slugs = @slug.split '_'
       ("#{s.charAt(0).toUpperCase()}#{s.slice(1)}" for s in slugs).join ''
-    initialize: ->
+    initialize: (p)->
       @slug = caml2snake(@constructor.name, ['Composite', 'View'].length)
       if @namespace
         @collection = new global["#{@namespace}"]?["#{do @capital_slug}Collection"]
       else 
         @collection = new global["#{do @capital_slug}Collection"]
-      do @collection.fetch
+
+      unless p?.fetch or p.fetch is false
+        do @collection.fetch
 
     getTemplate: ->
       "#{@slug}_composite_view_tmpl"
@@ -48,13 +50,15 @@ do (global = @, Marionette, Backbone, _)->
       slugs = @slug.split '_'
       ("#{s.charAt(0).toUpperCase()}#{s.slice(1)}" for s in slugs).join ''
 
-    initialize: ->
+    initialize: (p)->
       @slug = caml2snake(@constructor.name, ['Item', 'View'].length)
       if @namespace
         @model = new global["#{@namespace}"]?["#{do @capital_slug}Model"]
       else
         @model = new global["#{do @capital_slug}Model"]
-      do @model.fetch
+
+      unless p?.fetch or p.fetch is false
+        do @model.fetch
 
     getTemplate: ->
       "#{@slug}_item_view_tmpl"

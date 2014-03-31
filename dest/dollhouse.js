@@ -36,7 +36,7 @@
         })()).join('');
       };
 
-      CompositeView.prototype.initialize = function() {
+      CompositeView.prototype.initialize = function(p) {
         var _ref;
         this.slug = caml2snake(this.constructor.name, ['Composite', 'View'].length);
         if (this.namespace) {
@@ -44,7 +44,9 @@
         } else {
           this.collection = new global["" + (this.capital_slug()) + "Collection"];
         }
-        return this.collection.fetch();
+        if (!((p != null ? p.fetch : void 0) || p.fetch === false)) {
+          return this.collection.fetch();
+        }
       };
 
       CompositeView.prototype.getTemplate = function() {
@@ -118,7 +120,7 @@
         })()).join('');
       };
 
-      ItemView.prototype.initialize = function() {
+      ItemView.prototype.initialize = function(p) {
         var _ref;
         this.slug = caml2snake(this.constructor.name, ['Item', 'View'].length);
         if (this.namespace) {
@@ -126,7 +128,9 @@
         } else {
           this.model = new global["" + (this.capital_slug()) + "Model"];
         }
-        return this.model.fetch();
+        if (!((p != null ? p.fetch : void 0) || p.fetch === false)) {
+          return this.model.fetch();
+        }
       };
 
       ItemView.prototype.getTemplate = function() {
