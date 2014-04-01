@@ -23,7 +23,9 @@ do (global = @, Marionette, Backbone, _)->
       else 
         @collection = new global["#{do @capital_slug}Collection"]
 
-      unless p?.fetch or p.fetch is false
+      p = {} unless p?
+      p.fetch = true unless p.fetch?
+      unless p.fetch is false
         do @collection.fetch
 
     getTemplate: ->
@@ -57,8 +59,10 @@ do (global = @, Marionette, Backbone, _)->
       else
         @model = new global["#{do @capital_slug}Model"]
 
-      unless p?.fetch or p.fetch is false
-        do @model.fetch
+      p = {} unless p?
+      p.fetch = true unless p.fetch?
+      unless p.fetch is false
+        do @collection.fetch
 
     getTemplate: ->
       "#{@slug}_item_view_tmpl"

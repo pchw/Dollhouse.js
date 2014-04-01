@@ -44,7 +44,13 @@
         } else {
           this.collection = new global["" + (this.capital_slug()) + "Collection"];
         }
-        if (!((p != null ? p.fetch : void 0) || p.fetch === false)) {
+        if (p == null) {
+          p = {};
+        }
+        if (p.fetch == null) {
+          p.fetch = true;
+        }
+        if (p.fetch !== false) {
           return this.collection.fetch();
         }
       };
@@ -128,8 +134,14 @@
         } else {
           this.model = new global["" + (this.capital_slug()) + "Model"];
         }
-        if (!((p != null ? p.fetch : void 0) || p.fetch === false)) {
-          return this.model.fetch();
+        if (p == null) {
+          p = {};
+        }
+        if (p.fetch == null) {
+          p.fetch = true;
+        }
+        if (p.fetch !== false) {
+          return this.collection.fetch();
         }
       };
 
