@@ -50,8 +50,43 @@
         if (p.fetch == null) {
           p.fetch = true;
         }
+        if (!p.success) {
+          p.success = (function(_this) {
+            return function(data, type) {
+              return _this.trigger('success', _this, {
+                data: data,
+                type: type
+              });
+            };
+          })(this);
+        }
+        if (!p.error) {
+          p.error = (function(_this) {
+            return function(request, status, error) {
+              return _this.trigger('error', _this, {
+                request: request,
+                status: status,
+                error: error
+              });
+            };
+          })(this);
+        }
+        if (!p.complete) {
+          p.complete = (function(_this) {
+            return function(request, status) {
+              return _this.trigger('complete', _this, {
+                request: request,
+                status: status
+              });
+            };
+          })(this);
+        }
         if (p.fetch !== false) {
-          return this.collection.fetch();
+          return this.collection.fetch({
+            success: p.success,
+            error: p.error,
+            complete: p.complete
+          });
         }
       };
 
@@ -140,8 +175,43 @@
         if (p.fetch == null) {
           p.fetch = true;
         }
+        if (!p.success) {
+          p.success = (function(_this) {
+            return function(data, type) {
+              return _this.trigger('success', _this, {
+                data: data,
+                type: type
+              });
+            };
+          })(this);
+        }
+        if (!p.error) {
+          p.error = (function(_this) {
+            return function(request, status, error) {
+              return _this.trigger('error', _this, {
+                request: request,
+                status: status,
+                error: error
+              });
+            };
+          })(this);
+        }
+        if (!p.complete) {
+          p.complete = (function(_this) {
+            return function(request, status) {
+              return _this.trigger('complete', _this, {
+                request: request,
+                status: status
+              });
+            };
+          })(this);
+        }
         if (p.fetch !== false) {
-          return this.collection.fetch();
+          return this.collection.fetch({
+            success: p.success,
+            error: p.error,
+            complete: p.complete
+          });
         }
       };
 

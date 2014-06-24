@@ -25,8 +25,27 @@ do (global = @, Marionette, Backbone, _)->
 
       p = {} unless p?
       p.fetch = true unless p.fetch?
+      unless p.success
+        p.success = (data, type)=>
+          @trigger 'success', @,
+            data: data
+            type: type
+      unless p.error
+        p.error = (request, status, error)=>
+          @trigger 'error', @,
+            request: request
+            status: status
+            error: error
+      unless p.complete
+        p.complete = (request, status)=>
+          @trigger 'complete', @, 
+            request: request
+            status: status
       unless p.fetch is false
-        do @collection.fetch
+        @collection.fetch
+          success: p.success
+          error: p.error
+          complete: p.complete
 
     getTemplate: ->
       "#{@slug}_composite_view_tmpl"
@@ -61,8 +80,27 @@ do (global = @, Marionette, Backbone, _)->
 
       p = {} unless p?
       p.fetch = true unless p.fetch?
+      unless p.success
+        p.success = (data, type)=>
+          @trigger 'success', @,
+            data: data
+            type: type
+      unless p.error
+        p.error = (request, status, error)=>
+          @trigger 'error', @,
+            request: request
+            status: status
+            error: error
+      unless p.complete
+        p.complete = (request, status)=>
+          @trigger 'complete', @, 
+            request: request
+            status: status
       unless p.fetch is false
-        do @collection.fetch
+        @collection.fetch
+          success: p.success
+          error: p.error
+          complete: p.complete
 
     getTemplate: ->
       "#{@slug}_item_view_tmpl"
